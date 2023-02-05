@@ -1,28 +1,24 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
-
 function App() {
-    const [count, setCount] = useState(0);
 
     return (
-        <div className="App">
-            <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src="/vite.svg" className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://reactjs.org" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+        <div className="App flex flex-row">
+	        <div className="w-1/2">
+		        <img className="object-fill" src={"../images/bg-main-desktop.png"} alt="background"/>
+		        <img src={"../images/bg-card-front.png"} alt="card front"/>
+		        <img src={"../images/bg-card-back.png"} alt="card back"/>
+	        </div>
+	        <div className="w-1/2">
+		        <div className="flex flex-1 flex-col w-[400px] gap-4">
+			        <div className="flex flex-col justify-items-start items-start">
+				        <label className="text-[10px] font-bold">CARD HOLDER NAME</label>
+				        <input className="border-[1px] border-lightGrayishViolet rounded-md p-1 text-sm" type="text" placeholder="e.g. Jane Appleseed" />
+			        </div>
+			        <div className="flex flex-col justify-items-start items-start">
+				        <label className="text-[10px] font-bold">CARD NUMBER</label>
+				        <input className="border-[1px] border-lightGrayishViolet rounded-md p-1 text-sm" type="text" placeholder="e.g. 1234 5678 9123 0000" />
+			        </div>
+		        </div>
+	        </div>
         </div>
     );
 }
