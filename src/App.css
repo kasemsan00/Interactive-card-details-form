@@ -3,37 +3,37 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'SpaceGrotesk';
-    src: local("./assets/fonts/SpaceGrotesk-Bold.ttf");
+  font-family: "SpaceGrotesk";
+  src: local("./assets/fonts/SpaceGrotesk-Bold.ttf");
 }
 @font-face {
-    font-family: 'SpaceGrotesk';
-    src: local("./assets/fonts/SpaceGrotesk-Light.ttf");
-}
-
-@font-face {
-    font-family: 'SpaceGrotesk';
-    src: local("./assets/fonts/SpaceGrotesk-Medium.ttf");
+  font-family: "SpaceGrotesk";
+  src: local("./assets/fonts/SpaceGrotesk-Light.ttf");
 }
 
 @font-face {
-    font-family: 'SpaceGrotesk';
-    src: local("./assets/fonts/SpaceGrotesk-Regular.ttf");
+  font-family: "SpaceGrotesk";
+  src: local("./assets/fonts/SpaceGrotesk-Medium.ttf");
 }
 
 @font-face {
-    font-family: 'SpaceGrotesk';
-    src: local("./assets/fonts/SpaceGrotesk-SemiBold.ttf");
+  font-family: "SpaceGrotesk";
+  src: local("./assets/fonts/SpaceGrotesk-Regular.ttf");
+}
+
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: local("./assets/fonts/SpaceGrotesk-SemiBold.ttf");
 }
 
 * {
-    font-family: 'SpaceGrotesk', sans-serif;
-    font-weight: 500;
-    font-size: 18px;
+  font-family: "SpaceGrotesk", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
 }
 
 #root {
-    max-width: 1440px;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 1440px;
+  margin: 0 auto;
+  text-align: center;
 }
