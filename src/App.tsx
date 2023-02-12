@@ -7,11 +7,11 @@ import CardTemplateDesktop from "./CardTemplateDesktop";
 function App() {
   const [inputComplete, setInputComplete] = useState(false);
   const [inputForm, setInputForm] = useState({
-    cardHolderName: "Kasemsan Chompuwised",
-    cardNumber: "0000 0000 0000 0000",
-    expMonth: "00",
-    expYear: "YY",
-    cvc: "000",
+    cardHolderName: "",
+    cardNumber: "",
+    expMonth: "",
+    expYear: "",
+    cvc: "",
   });
   return (
     <div className="flex flex-col xl:flex-row inline-block h-screen  ">
