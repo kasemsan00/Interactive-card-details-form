@@ -15,16 +15,52 @@ interface Props {
   setInputComplete: (arg0: boolean) => void;
 }
 
+const TitleInput = ({ title }: { title: string }) => {
+  return (
+    <label
+      className="
+          sm:text-[11px] sm:font-bold
+          md:text-xs
+          lg:text-xs
+          xl:text-xs
+          font-bold
+          my-1
+       "
+    >
+      {title}
+    </label>
+  );
+};
+const InputWarning = ({ title, show }: { title: string; show: boolean }) => {
+  return (
+    <div className={`flex flex-1 justify-center items-center ${!show ? "" : "min-h-[20px] mt-1"} `}>
+      <label
+        className={`
+      sm:text-[11px] sm:font-bold
+			md:text-xs
+			lg:text-xs
+			xl:text-xs
+      text-xs text-red ${!show ? "hidden" : ""}`}
+      >
+        {title}
+      </label>
+    </div>
+  );
+};
+
 export default function FormInput({
   inputForm,
   setInputForm,
   inputComplete,
   setInputComplete,
 }: Props) {
-  const cardHolderNameRef = useRef<HTMLLabelElement>(null);
-  const cardNumberErrorRef = useRef<HTMLLabelElement>(null);
-  const cardExpMonthYear = useRef<HTMLLabelElement>(null);
-  const cardExpCVC = useRef<HTMLLabelElement>(null);
+  const [warningFormInput, setWarningFormInput] = useState({
+    cardHolderName: false,
+    cardNumber: false,
+    cardExpMonthYear: false,
+    cardExpYear: false,
+    cardExpCVC: false,
+  });
 
   const handleCardHolderName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -51,19 +87,16 @@ export default function FormInput({
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (inputForm.cardHolderName.trim() === "") {
-      cardHolderNameRef.current?.classList.remove("hidden");
+      setWarningFormInput({ ...warningFormInput, cardHolderName: true });
     }
     if (isNaN(Number(inputForm.cardNumber))) {
-      cardNumberErrorRef.current?.classList.remove("hidden");
+      setWarningFormInput({ ...warningFormInput, cardNumber: true });
     }
-    if (isNaN(Number(inputForm.expMonth))) {
-      cardExpMonthYear.current?.classList.remove("hidden");
-    }
-    if (isNaN(Number(inputForm.expYear))) {
-      cardExpMonthYear.current?.classList.remove("hidden");
+    if (isNaN(Number(inputForm.expMonth)) || isNaN(Number(inputForm.expYear))) {
+      setWarningFormInput({ ...warningFormInput, cardExpMonthYear: true });
     }
     if (isNaN(Number(inputForm.cvc))) {
-      cardExpCVC.current?.classList.remove("hidden");
+      setWarningFormInput({ ...warningFormInput, cardExpCVC: true });
       return;
     }
     setInputComplete(true);
@@ -91,7 +124,7 @@ export default function FormInput({
       }`}
     >
       <div className="flex flex-col justify-items-start items-start inline-block flex">
-        <label className="my-1">CARD HOLDER NAME</label>
+        <TitleInput title={"CARD HOLDER NAME"} />
         <input
           className="focus:outline-veryDarkViolet focus:outline-[1px]
                             border-[1px] border-lightGrayishViolet px-3 py-2
@@ -101,14 +134,10 @@ export default function FormInput({
           onChange={handleCardHolderName}
           value={inputForm.cardHolderName}
         />
-        <div className="flex flex-1 justify-center items-center min-h-[20px] mt-1">
-          <label className="text-xs text-red hidden" ref={cardHolderNameRef}>
-            Can't be blank
-          </label>
-        </div>
+        <InputWarning title={"Can't be blank"} show={warningFormInput.cardHolderName} />
       </div>
       <div className="flex flex-col justify-items-start items-start">
-        <label className="my-1">CARD NUMBER</label>
+        <TitleInput title={"CARD NUMBER"} />
         <input
           className="focus:outline-veryDarkViolet focus:outline-[1px]
                             border-[1px] border-lightGrayishViolet px-3 py-2
@@ -118,16 +147,12 @@ export default function FormInput({
           onChange={handleCardNumberChange}
           value={inputForm.cardNumber}
         />
-        <div className="flex flex-1 justify-center items-center min-h-[20px] mt-1">
-          <label className="text-xs text-red hidden" ref={cardNumberErrorRef}>
-            Wrong format, numbers only
-          </label>
-        </div>
+        <InputWarning title={"Wrong format, numbers only"} show={warningFormInput.cardNumber} />
       </div>
       <div className="flex flex-col justify-items-start items-start">
         <div className="flex flex-1 flex-row gap-2">
           <div className="flex flex-1 flex-col items-start">
-            <label className="my-1">EXP. DATE(MM/YY)</label>
+            <TitleInput title={"EXP. DATE(MM/YY)"} />
             <div className="flex flex-1 items-start gap-2">
               <input
                 className="inline-block focus:outline-veryDarkViolet focus:outline-[1px]
@@ -148,28 +173,20 @@ export default function FormInput({
                 value={inputForm.expYear}
               />
             </div>
-            <div className="flex flex-1 justify-center items-center min-h-[20px] mt-1">
-              <label className="text-xs text-red hidden" ref={cardExpMonthYear}>
-                Can't be blank
-              </label>
-            </div>
+            <InputWarning title={"Cant be blank"} show={warningFormInput.cardExpMonthYear} />
           </div>
           <div className="flex flex-1 items-start flex-col ">
-            <label className="my-1">CVC</label>
+            <TitleInput title={"CVC"} />
             <input
               className="inline-block focus:outline-veryDarkViolet focus:outline-[1px]
-                            border-[1px] border-lightGrayishViolet px-3 py-2 sm:w-[180px]
+                            border-[1px] border-lightGrayishViolet px-3 py-2 sm:w-[100%]
                             rounded-md"
               type="text"
               placeholder={"e.g. 123"}
               onChange={handleCardCVC}
               value={inputForm.cvc}
             />
-            <div className="flex flex-1 justify-center items-center min-h-[20px] mt-1">
-              <label className="text-xs text-red hidden" ref={cardExpCVC}>
-                Can't be blank
-              </label>
-            </div>
+            <InputWarning title={"Cant be blank"} show={warningFormInput.cardExpCVC} />
           </div>
         </div>
       </div>
